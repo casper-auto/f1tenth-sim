@@ -30,7 +30,7 @@ The simulator workspace is now initialized. The source for the packages will now
 user@ros-computer: git clone https://github.com/f1tenth-dev/simulator
 user@ros-computer: git clone https://github.com/mit-racecar/particle_filter
 user@ros-computer: git clone https://github.com/kctess5/range_libc
-user@ros-computer: git clone https://github.com/tu-darmstadt-ros-pkg/hector_slam
+user@ros-computer: git clone https://github.com/tu-darmstadt-ros-pkg/hector_slam -b melodic-devel
 ```
 
 The source for the required packages, including the simulator, are now in the workspace. The simulator depends on the GPU particle filter developed by the MIT RACECAR team and this package has to be configured before compiling the ROS packages. Navigate to the `range_libc` folder to compile the library necessary for the particle filter. Open a new terminal and enter the following commands:
