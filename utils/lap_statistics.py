@@ -11,7 +11,8 @@ from geometry_msgs.msg import Point32
 from geometry_msgs.msg import PolygonStamped
 
 car_name    = str(sys.argv[1])
-number_laps = int(sys.argv[2])
+pkg_path    = str(sys.argv[2])
+number_laps = int(sys.argv[3])
 
 global lap_count
 
@@ -143,7 +144,7 @@ def odom_callback(data):
 
                 if lap_count > number_laps:
                     print('finished collecting data')
-                    file_path  = os.path.expanduser('~/catkin_ws/src/f1tenth_logging/logs/statistics/lap_statistics.csv')
+                    file_path  = os.path.expanduser('{}/lap_statistics.csv'.format(pkg_path))
                     log_file   = open(file_path, mode = 'w')
                     csv_writer = csv.writer(log_file, delimiter = ',', quoting = csv.QUOTE_NONNUMERIC)
                     for data in lap_data:

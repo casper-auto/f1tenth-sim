@@ -9,15 +9,16 @@ from geometry_msgs.msg import PoseStamped
 from nav_msgs.msg import Path
 from nav_msgs.msg import Odometry
 
-trajectory_name = str(sys.argv[1])
-sector_list     = str(sys.argv[2])
+pkg_path        = str(sys.argv[1])
+trajectory_name = str(sys.argv[2])
+sector_list     = str(sys.argv[3])
 
 plan     = []
 sectors  = []
 frame_id = 'map'
 
 def get_plan():
-    file_path = os.path.expanduser('~/catkin_ws/src/f1tenth_purepursuit/path/{}.csv'.format(trajectory_name))
+    file_path = os.path.expanduser('{}/path/{}.csv'.format(pkg_path, trajectory_name))
     with open(file_path) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter = ',')
         for waypoint in csv_reader:
@@ -27,7 +28,7 @@ def get_plan():
             plan[index][point] = float(plan[index][point])
 
 def get_sectors():
-    file_path = os.path.expanduser('~/catkin_ws/src/f1tenth_purepursuit/sectors/{}.csv'.format(sector_list))
+    file_path = os.path.expanduser('{}/sectors/{}.csv'.format(pkg_path, sector_list))
     with open(file_path) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter = ',')
         for sector in csv_reader:

@@ -11,7 +11,8 @@ from std_msgs.msg import Int64
 from geometry_msgs.msg import PoseStamped
 
 car_name        = str(sys.argv[1])
-trajectory_name = str(sys.argv[2])
+pkg_path        = str(sys.argv[2])
+trajectory_name = str(sys.argv[3])
 
 plan = []
 
@@ -19,7 +20,7 @@ min_index_pub = rospy.Publisher('/{}/purepursuit_control/index_nearest_point'.fo
 min_pose_pub  = rospy.Publisher('/{}/purepursuit_control/visualize_nearest_point'.format(car_name), PoseStamped, queue_size = 1)
 
 def construct_path():
-    file_path = os.path.expanduser('~/catkin_ws/src/f1tenth_purepursuit/path/{}.csv'.format(trajectory_name))
+    file_path = os.path.expanduser('{}/path/{}.csv'.format(pkg_path, trajectory_name))
 
     with open(file_path) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter = ',')

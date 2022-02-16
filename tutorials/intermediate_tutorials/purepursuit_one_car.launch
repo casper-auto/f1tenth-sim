@@ -41,7 +41,7 @@
   <node        name           = 'trajectory_visualizer'
                pkg            = 'f1tenth-sim'
                type           = 'trajectory_visualizer.py'
-               args           = 'raceline raceline_sectors_original'/>
+               args           = '$(find f1tenth-sim) raceline raceline_sectors_original'/>
 
   <!-- spawn car using the set global parameters -->
   <include     file           = '$(find f1tenth-sim)/launch/simulator.launch'>
@@ -64,19 +64,19 @@
   <node        name           = 'nearest_pose_isolator'
                pkg            = 'f1tenth-sim'
                type           = 'find_nearest_pose.py'
-               args           = '$(arg car_name) raceline'/>
+               args           = '$(arg car_name) $(find f1tenth-sim) raceline'/>
 
   <!-- calculate lookahead distance range -->
   <node        name           = 'adaptive_lookahead_node'
                pkg            = 'f1tenth-sim'
                type           = 'adaptive_lookahead.py'
-               args           = '$(arg car_name) raceline_sectors_original'/>
+               args           = '$(arg car_name) $(find f1tenth-sim) raceline_sectors_original'/>
 
   <!-- find goal using lookahead distance -->
   <node        name           = 'nearest_goal_isolator'
                pkg            = 'f1tenth-sim'
                type           = 'find_nearest_goal.py'
-               args           = '$(arg car_name) raceline $(arg use_adaptive_lookahead) $(arg adaptive_lookahead_dist)'/>
+               args           = '$(arg car_name) $(find f1tenth-sim) raceline $(arg use_adaptive_lookahead) $(arg adaptive_lookahead_dist)'/>
 
   <!-- vehicle controller -->
   <node        name           = 'purepursuit_controller'
@@ -91,12 +91,14 @@
                args           = '$(arg car_name)'/>
 
   <!-- lap statistics visualizer -->
-  <node        name           = 'statistics_logger'
+  <!-- <node        name           = 'statistics_logger'
                pkg            = 'f1tenth-sim'
                type           = 'lap_statistics.py'
-               args           = '$(arg car_name) $(arg number_laps)'
+               args           = '$(arg car_name) $(find f1tenth-sim) $(arg number_laps)'
                output         = 'screen'
-               launch-prefix  = 'xterm -e'/> </group> </group>
+               launch-prefix  = 'xterm -e'/>  -->
+
+  </group> </group>
 
   <!-- launch rviz with navigation configuration -->
   <group       if             = '$(arg run_rviz)'>

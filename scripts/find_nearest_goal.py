@@ -11,9 +11,10 @@ from std_msgs.msg import Int64
 from std_msgs.msg import String
 
 car_name            = str(sys.argv[1])
-trajectory_name     = str(sys.argv[2])
-adaptive_lookahead  = str(sys.argv[3])
-ang_lookahead_dist  = float(sys.argv[4])
+pkg_path            = str(sys.argv[2])
+trajectory_name     = str(sys.argv[3])
+adaptive_lookahead  = str(sys.argv[4])
+ang_lookahead_dist  = float(sys.argv[5])
 
 plan = []
 
@@ -36,7 +37,7 @@ plan_size    = 0
 
 def construct_path():
     global plan_size
-    file_path = os.path.expanduser('~/catkin_ws/src/f1tenth_purepursuit/path/{}.csv'.format(trajectory_name))
+    file_path = os.path.expanduser('{}/path/{}.csv'.format(pkg_path, trajectory_name))
 
     with open(file_path) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter = ',')
@@ -92,7 +93,7 @@ def pose_callback(data):
     #     pose_index = pose_index - plan_size - 2
 
     pose_index = (data.data + ang_lookahead_dist) % plan_size
-    
+
     goal                    = PoseStamped()
     goal.header.seq         = seq
     goal.header.stamp       = rospy.Time.now()
